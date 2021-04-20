@@ -1,4 +1,4 @@
-import { start } from "https://deno.land/x/denops_std@v0.4/mod.ts";
+import { main } from "https://deno.land/x/denops_std@v0.8/mod.ts";
 
 let token: string | undefined = undefined;
 
@@ -29,7 +29,7 @@ const changeStatus = async (...args: Array<unknown>) => {
   await fetch("https://slack.com/api/users.profile.set", options);
 };
 
-start(async (vim) => {
+main(async ({ vim }) => {
   token = Deno.env.get("SLACK_STATUS_TOKEN");
 
   if (token == null || token === "") {
