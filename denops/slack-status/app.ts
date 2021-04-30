@@ -1,6 +1,7 @@
 import { main } from "https://deno.land/x/denops_std@v0.8/mod.ts";
 
 let token: string | undefined = undefined;
+let statusEmoji: string;
 
 const changeStatus = async (...args: Array<unknown>) => {
   const status = (args as Array<string>).join("");
@@ -14,6 +15,7 @@ const changeStatus = async (...args: Array<unknown>) => {
     profile: {
       status_text: status,
       status_expiration: Math.floor(Date.now() / 1000) + 1200,
+      status_emoji: statusEmoji,
     },
   };
 
@@ -35,6 +37,15 @@ main(async ({ vim }) => {
   if (token == null || token === "") {
     console.log("[SlackStatus] Token is not set");
     return;
+  }
+
+  statusEmoji = await vim.g.get(
+    "slack_status_emoji",
+    ":speech_balloon:",
+  ) as string;
+
+  if (statusEmoji === "") {
+    statusEmoji = ":speech_balloon:";
   }
 
   const messageContent = await vim.g.get(
