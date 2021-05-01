@@ -44,10 +44,6 @@ main(async ({ vim }) => {
     ":speech_balloon:",
   ) as string;
 
-  if (statusEmoji === "") {
-    statusEmoji = ":speech_balloon:";
-  }
-
   const messageContent = await vim.g.get(
     "slack_status_message",
     '["I\'m coding ", &filetype]',
