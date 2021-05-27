@@ -58,7 +58,7 @@ main(async ({ vim }) => {
   await vim.execute(`
 augroup slack_status
   autocmd!
-  autocmd BufWinEnter,WinEnter * SlackStatusWrite
+  autocmd BufWinEnter,WinEnter,BufEnter * SlackStatusWrite
   autocmd User DenopsSlackStatusReady SlackStatusWrite
 augroup END
     `);
