@@ -55,14 +55,15 @@ main(async ({ vim }) => {
     `command! SlackStatusWrite call denops#notify("${vim.name}", "changeStatus", ${messageContent})`,
   );
 
-  await vim.execute(
-    `silent doautocmd User DenopsSlackStatusReady`,
-  );
-
   await vim.execute(`
 augroup slack_status
   autocmd!
   autocmd BufWinEnter,WinEnter * SlackStatusWrite
+  autocmd User DenopsSlackStatusReady SlackStatusWrite
 augroup END
     `);
+
+  await vim.execute(
+    `silent doautocmd User DenopsSlackStatusReady`,
+  );
 });
